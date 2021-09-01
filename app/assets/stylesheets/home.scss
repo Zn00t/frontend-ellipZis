@@ -2,6 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-h1 {
-  color: red;
+form label {
+  color: #FFFFFF;
+  font-weight: bold;
+  padding: 1rem 3rem;
+  font-size: xx-large;
+}
+
+input[type=text] {
+  border: 2px white;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  padding-left: 60px;
+  margin: 3rem;
+  width: 30rem;
+  outline: none;
+  background-image: url(magnifying-glass-icon-26782.png); //source: https://www.freeiconspng.com/img/26782 (only for personal use!)
+  background-size: 2rem;
+  font-size: x-large;
+  background-repeat: no-repeat;
+  background-position: 15px 12px;
+}
+.btn-outline-light {
+  font-weight: bold;
+  font-size: x-large;
+  padding: 0.5rem 2rem;
+  border-radius: 30px;
 }
