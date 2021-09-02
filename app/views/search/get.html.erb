@@ -1,20 +1,53 @@
 <div class="container">
-  <h1>Results for <%= @query %>:</h1>
+  <h1>Results for "<%= @query %>"</h1>
   <div class="list-group">
-    <a href="#" class="list-group-item list-group-item-action">
-      <div class="row">
-        <div class="col-8">
-          Any Stop Name
-        </div>
-        <div class="col-4">
-          any more products
+    <% @results.times do |result| %>
+      <a href="/search/result/<%= @result[result]["id"] %>" class="list-group-item list-group-item-action">
+        <div class="row">
+          <div class="col-7 stop-name">
+            <%= @result[result]["name"] %>
+          </div>
+          <div class="col-5">
+            <div class="row">
+            <% if @result[result]["products"]["suburban"] == true %>
+              <div class="col">
+                <p>Suburban</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["subway"] == true %>
+              <div class="col">
+                <p>Subway</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["tram"] == true %>
+              <div class="col">
+                <p>Tram</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["bus"] == true %>
+              <div class="col">
+                <p>Bus</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["ferry"] == true %>
+              <div class="col">
+                <p>Ferry</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["express"] == true %>
+              <div class="col">
+                <p>Express</p>
+              </div>
+            <% end %>
+            <% if @result[result]["products"]["regional"] == true %>
+              <div class="col">
+                <p>Regional</p>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-    <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled
-      link item</a>
-  </div>
+      </a>
+    <% end %>
+    </div>
 </div>

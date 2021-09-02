@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get '/search', to: 'search#get'
+  get '/search/result/:id', to: 'result#index', as: :result
 
 end
