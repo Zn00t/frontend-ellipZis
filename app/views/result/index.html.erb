@@ -3,8 +3,131 @@
     <div class="stop-heading">
       <%= @result["name"] %>
     </div>
-    <%= @result %>
-    <%= @departures %>
-    <%= @arrivals %>
+    <div class="col-5">
+      <div class="row">
+        <% if @result["products"]["suburban"] == true %>
+          <div class="col-2">
+            <p>Suburban</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["subway"] == true %>
+          <div class="col-2">
+            <p>Subway</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["tram"] == true %>
+          <div class="col-2">
+            <p>Tram</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["bus"] == true %>
+          <div class="col-2">
+            <p>Bus</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["ferry"] == true %>
+          <div class="col-2">
+            <p>Ferry</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["express"] == true %>
+          <div class="col-2">
+            <p>Express</p>
+          </div>
+        <% end %>
+        <% if @result["products"]["regional"] == true %>
+          <div class="col-2">
+            <p>Regional</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <iframe
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    src=<%="https://www.google.com/maps/embed/v1/view?key=AIzaSyC73ZWK8kpuAd4T7P4TKqiZ0tqgcoVdmcE&center=#{@result["location"]["latitude"]},#{@result["location"]["longitude"]}&zoom=16" %>>
+  </iframe>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Departures
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-2">
+                  <h6>Line</h6>
+                </div>
+                <div class="col-3">
+                  <h6>Direction</h6>
+                </div>
+                <div class="col-2">
+                  <h6>Departure</h6>
+                </div>
+                <div class="col-1">
+                  <h6>Delay</h6>
+                </div>
+                <div class="col-1">
+                  <h6>Platform</h6>
+                </div>
+                <div class="col-3">
+                  <h6>More Information</h6>
+                </div>
+              </div>
+            </li>
+            <% @noOfResults.times do |dep| %>
+              <% if @departures[dep] != nil %>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-1">
+                      <%= @departures[dep]["line"]["name"] %>
+                    </div>
+                    <div class="col-1">
+                      <%= @departures[dep]["line"]["product"] %>
+                    </div>
+                    <div class="col-3 emph">
+                      <%= @departures[dep]["direction"] %>
+                    </div>
+                    <div class="col-2 emph">
+                      <%= @departures[dep]["plannedWhen"].to_datetime.strftime("%H:%M") %>
+                    </div>
+                    <div class="col-1">
+                      <% if @departures[dep]["delay"].nil? || @departures[dep]["delay"] < 0 %>
+                        0 min.
+                      <% else %>
+                        <%= (@departures[dep]["delay"] / 60).floor %> min.
+                      <% end %>
+                    </div>
+                    <div class="col-1">
+                      <% if @departures[dep]["plannedPlatform"].nil? %>
+                        <%= "-" %>
+                      <% else %>
+                        <%= @departures[dep]["plannedPlatform"] %>
+                      <% end %>
+                    </div>
+                    <div class="col-3">
+                      <% @departures[dep]["remarks"].each do |rem| %>
+                        <% unless rem["summary"].nil? %>
+                          <%= rem["summary"] %><br><br>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
